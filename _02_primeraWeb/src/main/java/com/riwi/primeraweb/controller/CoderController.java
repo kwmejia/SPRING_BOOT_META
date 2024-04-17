@@ -31,4 +31,10 @@ public class CoderController {
         return "viewCoder";
     }
 
+    @GetMapping("/form")
+    public String showViewFormCoder() {
+
+        return "viewForm";
+    }
+
 }
