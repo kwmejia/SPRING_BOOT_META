@@ -2,6 +2,7 @@ package com.riwi.primeraweb.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,9 +11,10 @@ import jakarta.persistence.Table;
 /* Table nos permite dar configuraciones a la tabla */
 @Table(name = "coder")
 public class Coder {
-    /* */
+    /* Id indica que el atriibuto siguiente será la llave primaria */
     @Id
-    @GeneratedValue()
+    /* GeneratedValue Permite que el id sera autoincrementable */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int age;
