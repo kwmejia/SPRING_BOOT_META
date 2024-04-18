@@ -25,4 +25,12 @@ public class CoderService {
     public List<Coder> findAll() {
         return this.objCoderRepository.findAll();
     }
+
+    /**
+     * Servicio para guardar un coder
+     */
+
+    public Coder insert(Coder objCoder) {
+        return this.objCoderRepository.save(objCoder);
+    }
 }
