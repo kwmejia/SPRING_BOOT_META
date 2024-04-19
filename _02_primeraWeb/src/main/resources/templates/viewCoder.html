@@ -57,11 +57,33 @@
       </table>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          <li
+            class="page-item"
+            th:classappend="${currentPage == 1} ? 'disabled' : ''"
+          >
+            <a class="page-link" th:href="@{|/?page=${currentPage-1}|}"
+              >Previous</a
+            >
+          </li>
+          <li
+            class="page-item"
+            th:each="i : ${#numbers.sequence(1, totalPages)}"
+          >
+            <a
+              class="page-link"
+              th:classappend="${i == currentPage} ? 'active' : ''"
+              th:href="@{|/?page=${i}|}"
+              th:text="${i}"
+            ></a>
+          </li>
+          <li
+            class="page-item"
+            th:classappend="${currentPage == totalPages} ? 'disabled' : ''"
+          >
+            <a class="page-link" th:href="@{|/?page=${currentPage + 1}|}"
+              >Next</a
+            >
+          </li>
         </ul>
       </nav>
     </div>
