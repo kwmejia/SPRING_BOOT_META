@@ -35,15 +35,17 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public boolean delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(Long id) {
+        Product productFind = this.productRepository.findById(id).orElseThrow();
+        this.productRepository.delete(productFind);
     }
 
     @Override
-    public Product update(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Product update(Long id, Product objProduct) {
+        this.productRepository.findById(id).orElseThrow();
+
+        objProduct.setId(id);
+        return this.productRepository.save(objProduct);
     }
 
     @Override
