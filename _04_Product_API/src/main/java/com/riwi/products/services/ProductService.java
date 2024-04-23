@@ -31,8 +31,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return this.productRepository.findById(id).orElseThrow();
     }
 
     @Override
