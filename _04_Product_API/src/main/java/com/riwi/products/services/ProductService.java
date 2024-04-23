@@ -20,8 +20,8 @@ public class ProductService implements IProductService {
 
     @Override
     public Product save(Product product) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+
+        return this.productRepository.save(product);
     }
 
     @Override
