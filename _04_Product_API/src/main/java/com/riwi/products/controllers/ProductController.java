@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.products.entities.Product;
@@ -33,6 +34,11 @@ public class ProductController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Product> get(@PathVariable Long id) {
         return ResponseEntity.ok(this.productService.findById(id));
+    }
+
+    @GetMapping(path = "/search")
+    public ResponseEntity<List<Product>> get(@RequestParam String name) {
+        return ResponseEntity.ok(this.productService.search(name));
 
     }
 

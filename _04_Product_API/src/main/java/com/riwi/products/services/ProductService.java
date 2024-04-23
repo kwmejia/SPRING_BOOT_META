@@ -50,8 +50,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> search(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        return this.productRepository.findByName(name);
     }
 
 }
