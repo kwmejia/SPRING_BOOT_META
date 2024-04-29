@@ -1,5 +1,7 @@
 package com.riwi.vacants.services;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,10 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.riwi.vacants.entities.Company;
+import com.riwi.vacants.entities.Vacant;
 import com.riwi.vacants.repositories.CompanyRepository;
 import com.riwi.vacants.services.interfaces.ICompanyService;
 import com.riwi.vacants.utils.dto.request.CompanyRequest;
 import com.riwi.vacants.utils.dto.response.CompanyResponse;
+import com.riwi.vacants.utils.dto.response.VacantToCompanyResponse;
 
 import lombok.AllArgsConstructor;
 
@@ -64,8 +68,8 @@ public class CompanyService implements ICompanyService {
      * de la entidad
      */
     private CompanyResponse entityToResponse(Company entity) {
-        CompanyResponse response = new CompanyResponse();
 
+        CompanyResponse response = new CompanyResponse();
         /**
          * Bean Utils nos permite hacer un copia de una clase en otra
          * En este caso toda la entidad de tipo Company sera copiada con la información
@@ -73,7 +77,26 @@ public class CompanyService implements ICompanyService {
          */
 
         BeanUtils.copyProperties(entity, response);
+
+        /**
+         * stream -> Convierte la lista en colección para poder iterarse
+         * map -> Itera toda la lista y retorna cambios
+         * collect -> Crea de nuevo toda la lista que se habia transformado en coleccion
+         */
+        response.setVacants(entity.getVacants().stream()
+                .map(this::vacantToResponse)
+                .collect(Collectors.toList()));
+
         return response;
 
     }
+
+    private VacantToCompanyResponse vacantToResponse(Vacant entity) {
+        VacantToCompanyResponse response = new VacantToCompanyResponse();
+
+        BeanUtils.copyProperties(entity, response);
+
+        return response;
+    }
+
 }

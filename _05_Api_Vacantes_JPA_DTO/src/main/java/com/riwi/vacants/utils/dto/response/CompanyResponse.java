@@ -16,5 +16,5 @@ public class CompanyResponse {
     private String name;
     private String location;
     private String contact;
-    private List<VacantResponse> vacants;
+    private List<VacantToCompanyResponse> vacants;
 }

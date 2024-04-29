@@ -41,7 +41,7 @@ public class Company {
      * eliminado
      */
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     @ToString.Exclude // excluimos esta propiedad del to string
     @EqualsAndHashCode.Exclude // excluimos las propiedades dentro la lista
     private List<Vacant> vacants;
