@@ -64,20 +64,32 @@ public class VacantService implements IVacantsService {
 
     @Override
     public VacantResponse update(VacantRequest request, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        // Buscamos la vancante
+        Vacant vacant = this.find(id);
+
+        // Validamos la compañia
+        Company company = this.companyRepository.findById(request.getCompanyId())
+                .orElseThrow(() -> new IdNotFoundExeption("company"));
+
+        // Convertimos el dto de request
+        vacant = this.requestToVacant(request, vacant);
+        // Agregamos la vacante
+        vacant.setCompany(company);
+        // Agregamos el nuevo Status
+        vacant.setStatus(request.getStatus());
+
+        return this.entityToResponse(this.vacantRepository.save(vacant));
     }
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        Vacant vacant = this.find(id);
+        this.vacantRepository.delete(vacant);
     }
 
     @Override
     public VacantResponse getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return this.entityToResponse(this.find(id));
     }
 
     private VacantResponse entityToResponse(Vacant entity) {
@@ -111,5 +123,10 @@ public class VacantService implements IVacantsService {
 
         return entity;
 
+    }
+
+    private Vacant find(Long id) {
+        return this.vacantRepository.findById(id)
+                .orElseThrow(() -> new IdNotFoundExeption("Vacant"));
     }
 }
