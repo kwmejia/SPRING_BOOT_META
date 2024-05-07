@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppointmentResp {
+public class AppointmentToClient {
     private Long id;    
     private LocalDateTime dateTime;
     private Integer duration;
     private String comments;
-    private BasicClientResp client;
     private ServiceResp service;
     private EmployeeResp employee;
 }
