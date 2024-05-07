@@ -1,5 +1,7 @@
 package com.riwi.beautySalon.api.dto.request;
 
+import com.riwi.beautySalon.utils.enums.RoleEmployee;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientReq {
+public class EmployeeReq {
     @NotBlank(message = "El nombre es requerido")
     private String firstName;
     @NotBlank(message = "El apellido es requerido")
@@ -30,5 +32,7 @@ public class ClientReq {
         message = "El email debe tener entre 5 y 100 caracteres"
     )
     private String email;
+    @NotBlank(message = "El rol es requerido")
+    private RoleEmployee role;
 
 }
