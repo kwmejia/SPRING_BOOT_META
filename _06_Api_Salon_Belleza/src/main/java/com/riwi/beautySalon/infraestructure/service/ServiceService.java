@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.riwi.beautySalon.api.dto.request.ServiceReq;
 import com.riwi.beautySalon.api.dto.response.ServiceResp;
+import com.riwi.beautySalon.domain.entities.ServiceEntity;
 import com.riwi.beautySalon.domain.repositories.ServiceRepository;
 import com.riwi.beautySalon.infraestructure.abstract_services.IServiceService;
 import com.riwi.beautySalon.utils.enums.SortType;
@@ -63,7 +64,8 @@ public class ServiceService implements IServiceService {
 
       this.serviceRepository.findAll(pagination);
 
-      return null;
+      return this.serviceRepository.findAll(pagination)
+        .map(this::entityToResp);
 
     }
 
@@ -71,6 +73,17 @@ public class ServiceService implements IServiceService {
     public List<ServiceResp> search(String name) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+
+    private ServiceResp entityToResp(ServiceEntity entity){
+
+        return ServiceResp.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .price(entity.getPrice())
+                .description(entity.getDescription())
+                .build();
     }
     
 }
