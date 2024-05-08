@@ -15,6 +15,8 @@ import com.riwi.beautySalon.domain.entities.ServiceEntity;
 import com.riwi.beautySalon.domain.repositories.ServiceRepository;
 import com.riwi.beautySalon.infraestructure.abstract_services.IServiceService;
 import com.riwi.beautySalon.utils.enums.SortType;
+import com.riwi.beautySalon.utils.exception.BadRequestException;
+import com.riwi.beautySalon.utils.messages.ErrorMessages;
 
 import lombok.AllArgsConstructor;
 
@@ -28,14 +30,14 @@ public class ServiceService implements IServiceService {
 
     @Override
     public ServiceResp create(ServiceReq request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+       ServiceEntity service = this.requestToEntity(request);
+
+       return this.entityToResp(this.serviceRepository.save(service));
     }
 
     @Override
     public ServiceResp get(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+       return this.entityToResp(this.find(id));
     }
 
     @Override
@@ -86,4 +88,19 @@ public class ServiceService implements IServiceService {
                 .build();
     }
     
+
+    private ServiceEntity requestToEntity(ServiceReq request){
+
+        return ServiceEntity.builder()
+                    .name(request.getName())
+                    .price(request.getPrice())
+                    .description(request.getDescription())
+                    .build();
+    }
+
+    private ServiceEntity  find(Long id ){
+
+        return this.serviceRepository.findById(id)
+            .orElseThrow(()-> new BadRequestException(ErrorMessages.idNotFound("Servicio")));
+    }
 }
