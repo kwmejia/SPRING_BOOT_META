@@ -42,14 +42,18 @@ public class ServiceService implements IServiceService {
 
     @Override
     public ServiceResp update(ServiceReq request, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        ServiceEntity service = this.find(id);
+
+        service = this.requestToEntity(request);
+
+        service.setId(id);
+
+        return this.entityToResp(this.serviceRepository.save(service));
     }
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+       this.serviceRepository.delete(this.find(id));
     }
 
     @Override
