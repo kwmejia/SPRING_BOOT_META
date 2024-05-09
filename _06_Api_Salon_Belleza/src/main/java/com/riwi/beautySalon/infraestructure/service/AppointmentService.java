@@ -35,7 +35,7 @@ import lombok.AllArgsConstructor;
  */
 
 @Service
-// @Transactional
+@Transactional
 @AllArgsConstructor
 public class AppointmentService implements IAppointmentService {
 
@@ -62,8 +62,9 @@ public class AppointmentService implements IAppointmentService {
         ServiceEntity service = this.serviceRepository.findById(request.getServiceId())
                 .orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("Service")));
 
+        //El empleado esté disponible a esa fecha y hora
         if (this.isEmployeeAvailable(request.getEmployeeId(), request.getDateTime()) != 0) {
-            throw new BadRequestException("EL empleado no esta displonible en este fecha");
+            throw new BadRequestException("EL empleado no esta displonible en esta fecha y hora");
         }
 
         Appointment appointment = this.requestToEntity(request);
@@ -134,7 +135,6 @@ public class AppointmentService implements IAppointmentService {
 
     private AppointmentResp entityToResponse(Appointment entity) {
 
-        System.out.println(entity);
         ServiceResp service = new ServiceResp();
         BeanUtils.copyProperties(entity.getService(), service);
 
