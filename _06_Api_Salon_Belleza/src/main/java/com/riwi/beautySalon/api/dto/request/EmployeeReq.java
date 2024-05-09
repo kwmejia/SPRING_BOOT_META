@@ -4,6 +4,7 @@ import com.riwi.beautySalon.utils.enums.RoleEmployee;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +33,7 @@ public class EmployeeReq {
         message = "El email debe tener entre 5 y 100 caracteres"
     )
     private String email;
-    @NotBlank(message = "El rol es requerido")
+    @NotNull(message = "El rol es requerido")
     private RoleEmployee role;
 
 }

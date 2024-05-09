@@ -1,5 +1,6 @@
 package com.riwi.beautySalon.infraestructure.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,8 @@ import com.riwi.beautySalon.domain.entities.ClientEntity;
 import com.riwi.beautySalon.domain.repositories.ClientRepository;
 import com.riwi.beautySalon.infraestructure.abstract_services.IClientService;
 import com.riwi.beautySalon.utils.enums.SortType;
+import com.riwi.beautySalon.utils.exception.BadRequestException;
+import com.riwi.beautySalon.utils.messages.ErrorMessages;
 
 import lombok.AllArgsConstructor;
 
@@ -31,28 +34,34 @@ public class ClientService implements IClientService{
     @Autowired
     private final ClientRepository clientRepository;
 
+
     @Override
     public ClientResp create(ClientReq request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        ClientEntity client = this.requestToEntity(request);
+        client.setAppointments(new ArrayList<>());
+        return this.entityToResp(this.clientRepository.save(client));
     }
 
     @Override
     public ClientResp get(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        return this.entityToResp(this.find(id));
     }
 
     @Override
     public ClientResp update(ClientReq request, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        ClientEntity client = this.find(id);
+
+        ClientEntity clientUpdate = this.requestToEntity(request);
+        clientUpdate.setId(id);
+        clientUpdate.setAppointments(client.getAppointments());
+
+        return this.entityToResp(this.clientRepository.save(clientUpdate));
     }
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        ClientEntity client = this.find(id);
+        this.clientRepository.delete(client);
     }
 
     @Override
@@ -107,5 +116,19 @@ public class ClientService implements IClientService{
                     .employee(employee)
                     .build();
 
+    }
+
+    private ClientEntity requestToEntity(ClientReq client) {
+        return ClientEntity.builder()
+                .firstName(client.getFirstName())
+                .lastName(client.getLastName())
+                .phone(client.getPhone())
+                .email(client.getEmail())
+                .build();
+    }
+
+    private ClientEntity find(Long id) {
+        return this.clientRepository.findById(id)
+                    .orElseThrow(()-> new BadRequestException(ErrorMessages.idNotFound("Client")));
     }
 }
