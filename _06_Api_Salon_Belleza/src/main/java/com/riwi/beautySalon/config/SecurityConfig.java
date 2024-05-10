@@ -14,7 +14,7 @@ public class SecurityConfig {
 
 
     /**
-     *  @Bean Annotation: Esta anotación le indica a Spring  que el objeto retornado
+     *  @Bean Annotatio n: Esta anotación le indica a Spring  que el objeto retornado
      *  por el metodo debe ser ser registrado como un bean (friol) en el contrexto de la app
      */
     @Bean
