@@ -1,6 +1,7 @@
 package com.riwi.beautySalon.infraestructure.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.riwi.beautySalon.api.dto.request.LoginReq;
@@ -24,6 +25,9 @@ public class AuthService implements IAuthService {
 
     @Autowired
     private final JwtService jwtService;
+
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
         
     @Override
     public AuthResp login(LoginReq request) {
@@ -33,17 +37,18 @@ public class AuthService implements IAuthService {
     @Override
     public AuthResp register(RegisterReq request) {
        /*1. Validar que userName no exista */
-       User exist =this.findByUserName(request.getUserName());
+       User exist = this.findByUserName(request.getUserName());
 
        if (exist != null) {
-            throw  new BadRequestException("Este nombre de usuario ya está registrado.");
+            throw new BadRequestException("Este nombre de usuario ya está registrado.");
        }
 
        /*2. Construimos el nuevo usuario */
 
        User user = User.builder()
                     .userName(request.getUserName())
-                    .password(request.getPassword())
+                    //Guardar la contraseña codificada
+                    .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.CLIENT)
                     .build();
         

@@ -13,11 +13,10 @@ import com.riwi.beautySalon.api.dto.response.AuthResp;
 import com.riwi.beautySalon.infraestructure.abstract_services.IAuthService;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthController {
     
     @Autowired
