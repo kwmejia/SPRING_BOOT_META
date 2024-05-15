@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.riwi.beautySalon.api.dto.request.ClientRegisterReq;
 import com.riwi.beautySalon.api.dto.request.LoginReq;
 import com.riwi.beautySalon.api.dto.request.RegisterReq;
 import com.riwi.beautySalon.api.dto.response.AuthResp;
@@ -85,6 +86,17 @@ public class AuthService implements IAuthService {
                 .token(this.jwtService.getToken(user))
                 .build();
 
+    }
+
+    /*Método para registrar un cliente */
+    public AuthResp registerClient(ClientRegisterReq request){
+
+            /*Validamos que el usuario no exista */
+            User exist = this.findByUserName(request.getUserName());
+
+            if (exist != null) {
+                throw new BadRequestException("El usuario ya está registrado");
+            }
     }
     
     private User findByUserName(String userName){
