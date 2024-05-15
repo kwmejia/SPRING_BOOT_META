@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.riwi.beautySalon.infraestructure.helpers.JwtAuthenticationFilter;
+import com.riwi.beautySalon.utils.enums.Role;
 
 import lombok.AllArgsConstructor;
 
@@ -26,7 +27,8 @@ public class SecurityConfig {
 
     //2. Declarar rutas publicas
     private final String[] PUBLIC_RESOURCES = { "/services/public/get", "/auth/**"};
-
+    //Declarar rutas de administrador
+    private final String[] ADMIN_RESOURCES = { "/register/employee" };
 
     /**
      *  @Bean Annotatio n: Esta anotación le indica a Spring  que el objeto retornado
@@ -38,6 +40,7 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable()) //Desabilitar csrf para apps monoliticas
             .authorizeHttpRequests(authRequest -> authRequest
+                .requestMatchers(ADMIN_RESOURCES).hasRole(Role.ADMIN.name())
                 .requestMatchers(PUBLIC_RESOURCES).permitAll()
                 .anyRequest().authenticated()
             )
