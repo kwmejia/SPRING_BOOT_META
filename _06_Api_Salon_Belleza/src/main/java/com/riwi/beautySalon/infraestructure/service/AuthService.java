@@ -89,7 +89,7 @@ public class AuthService implements IAuthService {
                     .userName(request.getUserName())
                     //Guardar la contraseña codificada
                     .password(passwordEncoder.encode(request.getPassword()))
-                    .role(Role.CLIENT)
+                    .role(Role.ADMIN)
                     .build();
         
         /*3. Guardar el nuevo usuario en la db*/

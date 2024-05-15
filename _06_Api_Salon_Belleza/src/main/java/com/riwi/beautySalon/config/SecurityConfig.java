@@ -40,7 +40,7 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable()) //Desabilitar csrf para apps monoliticas
             .authorizeHttpRequests(authRequest -> authRequest
-                .requestMatchers(ADMIN_RESOURCES).hasRole(Role.ADMIN.name())
+                .requestMatchers(ADMIN_RESOURCES).hasAuthority(Role.ADMIN.name())
                 .requestMatchers(PUBLIC_RESOURCES).permitAll()
                 .anyRequest().authenticated()
             )
