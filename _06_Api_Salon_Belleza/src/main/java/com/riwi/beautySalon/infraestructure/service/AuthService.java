@@ -1,16 +1,22 @@
 package com.riwi.beautySalon.infraestructure.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.riwi.beautySalon.api.dto.request.ClientRegisterReq;
 import com.riwi.beautySalon.api.dto.request.LoginReq;
 import com.riwi.beautySalon.api.dto.request.RegisterReq;
 import com.riwi.beautySalon.api.dto.response.AuthResp;
+import com.riwi.beautySalon.domain.entities.ClientEntity;
 import com.riwi.beautySalon.domain.entities.User;
+import com.riwi.beautySalon.domain.repositories.ClientRepository;
+import com.riwi.beautySalon.domain.repositories.EmployeeRepository;
 import com.riwi.beautySalon.domain.repositories.UserRepository;
 import com.riwi.beautySalon.infraestructure.abstract_services.IAuthService;
 import com.riwi.beautySalon.infraestructure.helpers.JwtService;
@@ -19,6 +25,7 @@ import com.riwi.beautySalon.utils.exception.BadRequestException;
 
 import lombok.AllArgsConstructor;
 
+@Transactional
 @Service
 @AllArgsConstructor
 public class AuthService implements IAuthService {
@@ -34,6 +41,11 @@ public class AuthService implements IAuthService {
         
     @Autowired
     private final AuthenticationManager authenticationManager;
+
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     public AuthResp login(LoginReq request) {
@@ -88,15 +100,44 @@ public class AuthService implements IAuthService {
 
     }
 
+    @Override
     /*Método para registrar un cliente */
     public AuthResp registerClient(ClientRegisterReq request){
 
-            /*Validamos que el usuario no exista */
-            User exist = this.findByUserName(request.getUserName());
+        /*Validamos que el usuario no exista */
+        User exist = this.findByUserName(request.getUserName());
 
-            if (exist != null) {
-                throw new BadRequestException("El usuario ya está registrado");
-            }
+        if (exist != null) {
+            throw new BadRequestException("El usuario ya está registrado");
+        }
+
+        /*Construimos el usuario */
+
+        User user = User.builder()
+                    .userName(request.getUserName())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .role(Role.CLIENT)
+                    .build();
+
+        /*Guardarlos en db */
+        User userSave = this.userRepository.save(user);
+
+        /*Construimos el cliente */
+        ClientEntity client = ClientEntity.builder()
+                    .firstName(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .phone(request.getPhone())
+                    .email(request.getEmail())
+                    .user(userSave)
+                    .appointments(new ArrayList<>())
+                    .build();
+        
+        this.clientRepository.save(client);
+
+        return AuthResp.builder()   
+                .message("Cliente registrado correctamente")
+                .token(this.jwtService.getToken(userSave))
+                .build();
     }
     
     private User findByUserName(String userName){
