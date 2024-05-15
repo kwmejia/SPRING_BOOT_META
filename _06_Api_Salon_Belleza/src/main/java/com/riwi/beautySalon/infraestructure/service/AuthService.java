@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.riwi.beautySalon.api.dto.request.ClientRegisterReq;
+import com.riwi.beautySalon.api.dto.request.EmployeeRegisterReq;
 import com.riwi.beautySalon.api.dto.request.LoginReq;
 import com.riwi.beautySalon.api.dto.request.RegisterReq;
 import com.riwi.beautySalon.api.dto.response.AuthResp;
 import com.riwi.beautySalon.domain.entities.ClientEntity;
+import com.riwi.beautySalon.domain.entities.Employee;
 import com.riwi.beautySalon.domain.entities.User;
 import com.riwi.beautySalon.domain.repositories.ClientRepository;
 import com.riwi.beautySalon.domain.repositories.EmployeeRepository;
@@ -143,5 +145,43 @@ public class AuthService implements IAuthService {
     private User findByUserName(String userName){
         return this.userRepository.findByUserName(userName)
                     .orElse(null);
+    }
+
+    @Override
+    public AuthResp registerEmployee(EmployeeRegisterReq request) {
+        
+        /*Validamos que el usuario no exista */
+        User exist = this.findByUserName(request.getUserName());
+
+        if (exist != null) {
+            throw new BadRequestException("El usuario ya está registrado");
+        }
+
+        /*Construimos el usuario */
+
+        User user = User.builder()
+                    .userName(request.getUserName())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .role(Role.EMPLOYEE)
+                    .build();
+
+        /*Guardarlos en db */
+        User userSave = this.userRepository.save(user);
+
+        Employee employee = Employee.builder()
+                    .firstName(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .email(request.getEmail())
+                    .role(request.getRole())
+                    .phone(request.getPhone())
+                    .user(userSave)
+                    .build();
+
+        this.employeeRepository.save(employee);
+
+        return AuthResp.builder()
+                    .message("Empleado registrado correctamente")
+                    .token(this.jwtService.getToken(userSave))
+                    .build();
     }
 }
