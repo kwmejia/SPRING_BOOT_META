@@ -3,16 +3,16 @@
 ## Este documento contiene una serie de ejercicios en Java, diseñados para evaluar los conocimientos básicos en programación. Cada ejercicio incluye su respectiva solución.
 
 
-**1.** Escribe un programa en Java que imprima "Hola, Mundo!".
-**2.** Escribe un programa en Java que sume dos números y muestre el resultado.
-**3.** Escribe un programa en Java que determine si un número es par o impar.
-**4.** Escribe un programa en Java que calcule el factorial de un número dado.
-**5.** Escribe un programa en Java que invierta una cadena de texto.
-**6.**  Escribe un programa en Java que determine si un número es primo.
-**7.**  Escribe un programa en Java que genere la serie de Fibonacci hasta un número dado.
-**8.** Escribe un programa en Java que calcule la media de los elementos de un array.
-**9.** Escribe un programa en Java que ordene los elementos de un array en orden ascendente.
-**10.** Escribe un programa en Java que multiplique dos matrices.
+## **1.** Escribe un programa en Java que imprima "Hola, Mundo!".
+## **2.** Escribe un programa en Java que sume dos números y muestre el resultado.
+## **3.** Escribe un programa en Java que determine si un número es par o impar.
+## **4.** Escribe un programa en Java que calcule el factorial de un número dado.
+## **5.** Escribe un programa en Java que invierta una cadena de texto.
+## **6.**  Escribe un programa en Java que determine si un número es primo.
+## **7.**  Escribe un programa en Java que genere la serie de Fibonacci hasta un número dado.
+## **8.** Escribe un programa en Java que calcule la media de los elementos de un array.
+## **9.** Escribe un programa en Java que ordene los elementos de un array en orden ascendente.
+## **10.** Escribe un programa en Java que multiplique dos matrices.
 
 
 
@@ -173,6 +173,8 @@
 
 # Solucionario
 
+## Ejercicio 1  Hola Mundo
+
 **1.** Escribe un programa en Java que imprima "Hola, Mundo!".
 
 ```java
@@ -182,6 +184,9 @@ public class HolaMundo {
     }
 }
 ```
+
+## Ejercicio 2 Suma de números
+
 **2.** Escribe un programa en Java que sume dos números y muestre el resultado.
 ```java
 import java.util.Scanner;
@@ -204,6 +209,7 @@ public class Suma {
 
 ```
 
+## Ejercicio 3 par e impar
 
 **3.** Escribe un programa en Java que determine si un número es par o impar.
 
@@ -225,6 +231,9 @@ public class ParImpar {
     }
 }
 ```
+
+## Ejercicio 4 Factorial de un número
+
 
 **4.** Escribe un programa en Java que calcule el factorial de un número dado.
 
@@ -248,6 +257,7 @@ public class Factorial {
 }
 ```
 
+## Ejercicio 5 Invertir cadena de texto
 
 **5.** Escribe un programa en Java que invierta una cadena de texto.
 
@@ -267,6 +277,9 @@ public class InvertirCadena {
     }
 }
 ```
+
+## Ejercicio 6 Números primos
+
 **6.**  Escribe un programa en Java que determine si un número es primo.
 
 ```java
@@ -300,6 +313,8 @@ public class NumeroPrimo {
     }
 }
 ```
+
+## Ejercicio 7 Fibonacci
 
 **7.**  Escribe un programa en Java que genere la serie de Fibonacci hasta un número dado.
 
@@ -415,7 +430,7 @@ public class MultiplicarMatrices {
 
 
 
-# Preguntas Teóricas sobre Programación Orientada a Objetos (POO) en Java
+# Solución preguntas
 
 
 ## Pregunta 1: ¿Qué es la Programación Orientada a Objetos (POO)?
