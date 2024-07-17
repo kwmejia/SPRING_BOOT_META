@@ -1,0 +1,19 @@
+version: '3.8' # specify docker-compose version
+
+services:
+  db: # name of the service
+    image: mysql:8.0 # specify image to build container from
+    container_name: microservices_db # name of the container
+    restart: always # restart the container if it fails
+    environment: # environment variables
+      MYSQL_ROOT_PASSWORD: root # specify root password
+      MYSQL_DATABASE: riwi_db_meta # specify database name
+      MYSQL_USER: user # specify user
+      MYSQL_PASSWORD: password # specify password
+    ports:
+      - "3307:3306" # specify port mapping
+    volumes:
+      - db_data:/var/lib/mysqli # specify volume to persist data
+
+volumes:
+  db_data: # name of the volume

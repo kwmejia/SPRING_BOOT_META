@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductsApplication<products>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.riwi.products.ProductsApplication",
+            "projectName": "products",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

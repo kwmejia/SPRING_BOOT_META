@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "aae91117-8b7a-48b3-973e-eb5b5c49eba5",
+		"name": "_03_operations_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34443770"
+	},
+	"item": [
+		{
+			"name": "greet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/greet",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"greet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sum",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"num1\": 20,\r\n    \"num2\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/operations",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"operations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subtract",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"num1\": 20,\r\n    \"num2\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/operations/subtract",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"operations",
+						"subtract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "multiply",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"num1\": 20,\r\n    \"num2\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/operations/multiply",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"operations",
+						"multiply"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "split",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"num1\": 20,\r\n    \"num2\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/operations/split",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"operations",
+						"split"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:8080/api/v1"
+		}
+	]
+}
