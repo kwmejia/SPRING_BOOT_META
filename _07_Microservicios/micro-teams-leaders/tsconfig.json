@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "CommonJS",
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "strict": false,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "experimentalDecorators": true, // Habilitar decoradores experimentales
+      "emitDecoratorMetadata": true ,// Emitir metadatos para los decoradores
+    },
+    "include": ["src"]
+}
+  
